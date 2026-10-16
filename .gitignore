@@ -1,0 +1,31 @@
+# ===== 你的私人数据 —— 绝对不要提交 =====
+# 账户配置(含加密的授权码)、邮件缓存、密钥文件
+data/
+我的账户.txt
+*.keyfile
+
+# 任何本地的账户备忘文件
+*账户*.txt
+*授权码*.txt
+
+# ===== 运行时(299MB, 各平台自行安装) =====
+runtime/
+
+# ===== 系统与编辑器垃圾 =====
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+.fseventsd
+Thumbs.db
+desktop.ini
+*.swp
+*~
+.idea/
+.vscode/
+node_modules/
+
+# ===== 日志与临时文件 =====
+*.log
+server.pid
+npm-debug.log*

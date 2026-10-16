@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>U盘邮</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+
+  <!-- 左栏: 账户 + 文件夹 -->
+  <aside id="sidebar">
+    <div class="brand">
+      <div class="logo">✉</div>
+      <div class="brand-txt"><b>U盘邮</b><span id="verLine">本地 · 免登录</span></div>
+    </div>
+
+    <div class="side-sec">
+      <div class="side-head"><span>账户</span><button class="mini" id="btnAddAcc" title="添加邮箱">＋</button></div>
+      <div id="accList" class="acc-list"></div>
+    </div>
+
+    <div class="side-sec">
+      <div class="side-head"><span>文件夹</span></div>
+      <div id="boxList" class="box-list"></div>
+    </div>
+
+    <div class="side-foot">
+      <button class="ghost" id="btnRefreshAll">↻ 刷新收件箱</button>
+      <button class="ghost" id="btnSettings">⚙ 设置</button>
+    </div>
+  </aside>
+
+  <!-- 中栏: 邮件列表 -->
+  <section id="listPane">
+    <header class="pane-head">
+      <input id="searchInput" type="search" placeholder="搜索主题 / 发件人…" autocomplete="off">
+      <div class="head-actions">
+        <button class="mini" id="btnReload" title="重新收取">↻</button>
+      </div>
+    </header>
+    <div id="listMeta" class="list-meta"></div>
+    <div id="msgList" class="msg-list"></div>
+  </section>
+
+  <!-- 右栏: 正文 -->
+  <section id="readPane">
+    <div id="reader" class="reader empty">
+      <div class="empty-state">
+        <div class="empty-icon">📬</div>
+        <h2>选择一封邮件</h2>
+        <p>左侧添加你的 QQ / 163 邮箱，即可在此收取邮件。<br>所有数据保存在 U 盘里，不上传、不注册。</p>
+        <button class="primary" id="btnEmptyAdd">添加邮箱账户</button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- 添加账户弹窗 -->
+<div class="modal-mask" id="accModal" hidden>
+  <div class="modal">
+    <h3>添加邮箱账户</h3>
+    <div class="field">
+      <label>邮箱类型</label>
+      <div class="preset-row" id="presetRow"></div>
+    </div>
+    <div class="field">
+      <label>邮箱地址</label>
+      <input id="fEmail" type="email" placeholder="yourname@qq.com" autocomplete="off">
+    </div>
+    <div class="field">
+      <label>IMAP 服务器</label>
+      <div class="row2">
+        <input id="fHost" type="text" placeholder="imap.qq.com" autocomplete="off">
+        <input id="fPort" type="number" value="993" style="max-width:90px">
+      </div>
+    </div>
+    <div class="field">
+      <label>授权码 <span class="tip" id="passHint"></span></label>
+      <input id="fPass" type="password" placeholder="不是网页登录密码" autocomplete="new-password">
+    </div>
+    <div class="field">
+      <label>显示名称</label>
+      <input id="fLabel" type="text" placeholder="例如：工作邮箱" autocomplete="off">
+    </div>
+    <div id="accMsg" class="form-msg"></div>
+    <div class="modal-foot">
+      <button class="ghost" id="btnCancelAcc">取消</button>
+      <button class="ghost" id="btnTestAcc">测试连接</button>
+      <button class="primary" id="btnSaveAcc">保存并收取</button>
+    </div>
+  </div>
+</div>
+
+<!-- 设置弹窗 -->
+<div class="modal-mask" id="setModal" hidden>
+  <div class="modal">
+    <h3>设置</h3>
+    <div class="field">
+      <label>每页收取封数</label>
+      <input id="sPageSize" type="number" min="5" max="200" value="30">
+    </div>
+    <div class="field check">
+      <label><input id="sMarkSeen" type="checkbox"> 打开邮件后在服务器标记为已读</label>
+    </div>
+    <div class="field">
+      <label>当前账户</label>
+      <div id="setAccRow" class="set-acc-row"></div>
+    </div>
+    <div class="field">
+      <label>数据位置</label>
+      <div class="tip" id="dataPathTip">U盘 data/ 目录</div>
+    </div>
+    <div class="modal-foot">
+      <button class="danger ghost" id="btnDeleteAcc">删除当前账户</button>
+      <span style="flex:1"></span>
+      <button class="ghost" id="btnCloseSet">关闭</button>
+      <button class="primary" id="btnSaveSet">保存</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast" class="toast" hidden></div>
+<script src="app.js"></script>
+</body>
+</html>
